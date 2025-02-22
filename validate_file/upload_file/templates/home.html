@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Validación de Archivo txt</title>
+    </head>
+<body>
+    <h1>Subir Archivo txt</h1>
+
+    {% if result %}
+      <pre>{{ result }}</pre>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="file" accept=".txt" required>
+        <button type="submit">Subir Archivo</button>
+    </form>
+</body>
+</html>
