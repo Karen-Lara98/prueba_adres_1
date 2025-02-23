@@ -1,6 +1,15 @@
 import pandas as pd
 from django.shortcuts import render
 from django.core.files.storage import default_storage
+from django.http import JsonResponse
+from django.core.files.base import ContentFile
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
+
+import pandas as pd
+from django.shortcuts import render
+from django.http import JsonResponse
+from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -15,6 +24,8 @@ def home(request):
         # a. Validar que el archivo tenga extensión .txt
         if not uploaded_file.name.endswith(".txt"):
             context["result"] = "Error: Por favor sube un archivo txt válido."
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({"result": context["result"]}, status=400)
             return render(request, "home.html", context)
 
         # Guardamos el archivo de forma temporal usando default_storage
@@ -25,11 +36,15 @@ def home(request):
             df = pd.read_csv(default_storage.path(file_path), delimiter=",", header=None)
         except Exception as e:
             context["result"] = f"Error al procesar el archivo: {str(e)}"
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({"result": context["result"]}, status=400)
             return render(request, "home.html", context)
 
         # a. Validar que el archivo tenga exactamente 5 columnas
         if df.shape[1] != 5:
             context["result"] = "Error: El archivo debe tener exactamente 5 columnas."
+            if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+                return JsonResponse({"result": context["result"]}, status=400)
             return render(request, "home.html", context)
 
         errores = []  # Lista para almacenar los errores encontrados
@@ -40,7 +55,6 @@ def home(request):
 
             # b. Columna 1: Solo números enteros de 3 a 10 caracteres
             col1 = str(row[0]).strip()
-            print(row[0], type(row[0]), len(col1))
             if not len(col1) >= 3 and not len(col1) <= 10:
                 errores.append(f"Fila {fila}, Columna 1: debe ser un número entero de 3 a 10 dígitos.")
 
@@ -68,10 +82,12 @@ def home(request):
 
         # Se envía al template el resultado de la validación
         if errores:
-            # Si hay errores, los concatenamos en un solo mensaje
             context["result"] = "Se encontraron errores:\n" + "\n".join(errores)
         else:
             context["result"] = "Archivo validado correctamente."
 
-    # Se renderiza el template 'home.html' enviando el contexto
+        # Si la petición es AJAX, retornamos un JSON
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({"result": context["result"]}, status=200)
+
     return render(request, "home.html", context)

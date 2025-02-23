@@ -1,19 +1,35 @@
+{% load static %} 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <title>Validación de Archivo txt</title>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Validación de Archivo txt</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
 <body>
-    <h1>Subir Archivo txt</h1>
+    <div class="container">
+        <h1>Subir Archivo txt</h1>
 
-    {% if result %}
-      <pre>{{ result }}</pre>
-    {% endif %}
+        <h5 class="left-align">Resultados:</h5>
+        <div id="resultContainer">
+            {% if result %}
+                <pre>{{ result }}</pre>
+            {% endif %}
+        </div>
 
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <input type="file" name="file" accept=".txt" required>
-        <button type="submit">Subir Archivo</button>
-    </form>
+        <form method="post" enctype="multipart/form-data" id="uploadForm" action="{% url 'home' %}">
+            {% csrf_token %}
+            <input type="file" name="file" accept=".txt" required>
+            <button type="submit">Subir Archivo</button>
+        </form>
+
+        <div id="progressContainer">
+            <div id="progressWrapper">
+                <div id="progressBar"></div>
+            </div>
+            <p id="progressText">0%</p>
+        </div>
+    </div>
+    <script src="{% static 'js/main.js' %}"></script> 
 </body>
 </html>

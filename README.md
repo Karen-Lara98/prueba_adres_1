@@ -28,12 +28,11 @@ El archivo txt que se subirá debe cumplir con las siguientes condiciones:
 - Virtualenv (opcional, pero recomendado para crear entornos virtuales)
 
 ## Instalación
-Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
+Para instalar y ejecutar el proyecto en su máquina local:
 
 ### Clonar el Repositorio
 Primero, clona el repositorio de Git a tu máquina local utilizando el siguiente comando:
 
-### bash
 ```
 git clone https://github.com/Karen-Lara98/prueba_adres_1.git
 ```
@@ -70,7 +69,9 @@ Finalmente, inicia el servidor de desarrollo con:
 python manage.py runserver
 ```
 
-Por ultimo dirijase en el navegador *(el de su preferencia)* a la siguiente dirección que es en donde el servidor [Servidor local](http://127.0.0.0.1:8000)
-
+Por ultimo dirijase en el navegador *(el de su preferencia)* a la siguiente dirección que es en donde el servidor:
+```
+http://127.0.0.0.1:8000
+```
 ### Ejemplos de funcionalidad
 (Pendiente)
