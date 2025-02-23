@@ -61,7 +61,10 @@ Instala todas las dependencias requeridas para el proyecto ejecutando:
 pip install -r requirements.txt
 ```
 
-
+### Navega hasta validate_file
+```
+cd validate_file
+```
 
 ### Ejecutar el Servidor de Desarrollo
 Finalmente, inicia el servidor de desarrollo con:
