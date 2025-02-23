@@ -74,4 +74,29 @@ Por ultimo dirijase en el navegador *(el de su preferencia)* a la siguiente dire
 http://127.0.0.0.1:8000
 ```
 ### Ejemplos de funcionalidad
-(Pendiente)
+
+- Página inicial
+
+![Inicio](validate_file\upload_file\static\images\inicio.png)
+
+- Validación con archivo _(invalido.txt)_
+
+![Validación 1](validate_file\upload_file\static\images\validacion_1.png)
+
+- Validación con archivo _(valido.txt)_
+
+![Validación 2](validate_file\upload_file\static\images\validacion_2.png)
+
+Acá se puede apreciar que a pesar de que es el archivo denominado "valido" también contiene errores.
+
+- Validación con archivo _(valido_v2_karen.txt)_
+
+![Validación 3](validate_file\upload_file\static\images\validacion_3.png)
+
+En este caso lo que hice es proponer un archivo el cual NO contiene errores, la única modificación que hice fue corregir los valores del anterior archivo para que si estuvieran dentro del rango permitido.
+
+- Validación con archivo que NO es un TXT
+
+![Validación 4](validate_file\upload_file\static\images\validacion_4.png)
+
+Por último, quise validar que mi aplicación en caso de que se le pase una archivo que no es un TXT tuviera la capacidad de responder y controlar el error.
